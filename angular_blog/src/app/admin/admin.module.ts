@@ -7,6 +7,7 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { CreatePageComponent } from './create-page/create-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 //модлуль для админки нужен для того чтобы можно было воспользоваться ленивой загрузкой еслии он не нужен
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EditPageComponent,
   ],
   imports: [
+    SharedModule,
     FormsModule, //для возможности использования форм
     ReactiveFormsModule, //для их реактивности
     CommonModule, //для того чтобы у нас были доступны все фишечки по типу пайпов дирректив и т.п.

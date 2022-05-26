@@ -11,7 +11,11 @@
   >
     <label for="email">Email:</label>
 
-    <input id="email" type="text">
+    <input 
+      id="email" 
+      type="text"
+      formControlName="email"
+    >
 
     <div
       *ngIf="form.get('email').touched && form.get('email').invalid" 
@@ -37,7 +41,11 @@
   >
     <label for="password">Password:</label>
 
-    <input id="password" type="password">
+    <input 
+      id="password" 
+      type="password"
+      formControlName="password"
+    >
 
     <div
       *ngIf="form.get('password').touched && form.get('password').invalid"  
@@ -50,9 +58,10 @@
       </small>
 
       <small
-        *ngIf="form.get('password').errors.password"
+        *ngIf="form.get('password').errors.minlength"
       >
-        Min length of password is 6 characters
+        Min length of password is {{form.get('password').errors.minlength.requiredLength}} characters
+        You entered {{form.get('password').errors.minlength.actualLength}}
       </small>
     </div>
   </div>

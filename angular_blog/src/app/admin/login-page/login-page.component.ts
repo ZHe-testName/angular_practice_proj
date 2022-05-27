@@ -7,11 +7,15 @@ import { AuthService } from '../shared/services/auth.service';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
+  providers: [
+    AuthService,
+  ],
 })
 export class LoginPageComponent implements OnInit {
 
   form: FormGroup
+  submitted: boolean = false
 
   constructor(
     private auth: AuthService,//для авторизации
@@ -36,15 +40,20 @@ export class LoginPageComponent implements OnInit {
       return;
     };
 
+    this.submitted = true;
+
     const user: User = {
       email: this.form.value.email,
       password: this.form.value.password,
+      returnSecureToken: true,
     };
 
     this.auth.login(user).subscribe(() => {
       this.form.reset();
 
       this.router.navigate(['/admin', 'dashboard']);
+
+      this.submitted = false;
     });
   }
 }

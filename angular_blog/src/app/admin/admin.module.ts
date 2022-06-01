@@ -1,3 +1,5 @@
+import { AuthGuard } from './shared/services/auth.guard';
+import { AuthService } from './shared/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
@@ -39,19 +41,23 @@ import { SharedModule } from '../shared/shared.module';
           {
             path: 'dashboard',
             component: DashboardPageComponent,
+            canActivate: [AuthGuard], //защищаем нужные роуты
           },
           {
             path: 'create',
             component: CreatePageComponent,
+            canActivate: [AuthGuard], //защищаем нужные роуты
           },
           {
             path: 'post/:id/edit',
             component: EditPageComponent,
+            canActivate: [AuthGuard], //защищаем нужные роуты
           },
         ],
       }
     ]),
   ],
+  providers: [AuthService, AuthGuard],
   exports: [
     RouterModule //экспортируем для того чтобы он работал в главном модуле
   ],

@@ -5,6 +5,17 @@
 >
   <h2>Enter to admin panel</h2>
 
+  <!-- данная запись auth.error$ | async as error означает
+  что так как  auth.error$ это стрим то обрабатываем его пайпом async
+  и после этого обявляем локальную переменную error при помощи as для использования в шаблоне-->
+  <div class="alert alert-danger" *ngIf="auth.error$ | async as error">
+    {{error}}
+  </div>
+
+  <div class="alert alert-info" *ngIf="message">
+    {{message}}
+  </div>
+
   <div
     [ngClass]="{invalid: form.get('email').touched && form.get('email').invalid}" 
     class="form-control"

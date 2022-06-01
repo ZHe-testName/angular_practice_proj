@@ -1,11 +1,14 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, Observable, tap } from "rxjs";
+import { catchError, Observable, Subject, tap } from "rxjs";
 import { FbAuthResponse, User } from "src/app/shared/interfaces";
 import { environment } from "src/environments/environment";
 
 @Injectable()
 export class AuthService {
+
+  public error$: Subject<string> = new Subject<string>(); //Subject это тоже стрим толькоо в нем можно эмитить собития
+
   constructor(
     private http: HttpClient,
   ) {}
@@ -40,7 +43,19 @@ export class AuthService {
   }
 
   private handleError(error: HttpErrorResponse) {
+    const {message} = error.error.error;
 
+    switch (message){
+      case 'INVALID_EMAIL':
+        this.error$.next('You enter wrong email'); //next будет эмитить нпм новое значение
+        break;
+      case 'INVALID_PASSWORD':
+        this.error$.next('You enter wrong password');
+        break;
+      case 'EMAIL_NOT_FOUND':
+        this.error$.next('Such email douse not exist');
+        break;
+    };
   }
 
   private setToken(response: FbAuthResponse | null) {  //не сеттер потому что с методом удобнее работать в RxJS стримах и в него мы будем передавать более широкие параметры

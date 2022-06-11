@@ -29,6 +29,8 @@ export class LoginPageComponent implements OnInit {
     this.route.queryParams.subscribe((params: Params) => { //так как this.route.queryParams это стрим
       if (params['loginAgain']) {
         this.message = 'Please, enter into system';
+      }else if(params['authFailed']) {
+        this.message = 'Session is over. Enter your data again';
       };
     });
 

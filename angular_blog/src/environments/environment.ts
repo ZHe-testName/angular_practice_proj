@@ -7,6 +7,7 @@ import { Environment } from "./interface";
 export const environment: Environment = {
   production: false,
   apiKey: "AIzaSyBeO3UpixuPqBj_OAmOzIf2IdwMYFB1GPk",
+  fbDbUrl: "https://angular-blog-5885d-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 /*

@@ -1,5 +1,4 @@
 import { AuthGuard } from './shared/services/auth.guard';
-import { AuthService } from './shared/services/auth.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
@@ -10,6 +9,9 @@ import { CreatePageComponent } from './create-page/create-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { SearchPipe } from './shared/pipes/search.pipe';
+import { AlertComponent } from './shared/components/alert/alert.component';
+import { AlertService } from './shared/services/alert.service';
 //модлуль для админки нужен для того чтобы можно было воспользоваться ленивой загрузкой еслии он не нужен
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { SharedModule } from '../shared/shared.module';
     DashboardPageComponent,
     CreatePageComponent,
     EditPageComponent,
+    SearchPipe,
+    AlertComponent,
   ],
   imports: [
     SharedModule,
@@ -57,9 +61,12 @@ import { SharedModule } from '../shared/shared.module';
       }
     ]),
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [
+    AuthGuard, 
+    AlertService,
+  ],
   exports: [
-    RouterModule //экспортируем для того чтобы он работал в главном модуле
+    RouterModule, //экспортируем для того чтобы он работал в главном модуле
   ],
 })
 export class AdminModule {};

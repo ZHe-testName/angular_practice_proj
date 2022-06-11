@@ -1,1 +1,64 @@
-<p>create-page works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1>
+    New Post Creation
+  </h1>
+
+  <div
+    [ngClass]="{invalid: form.get('title').touched && form.get('title').invalid}" 
+    class="form-control"
+  >
+    <label for="title">Title:</label>
+
+    <input 
+      id="title" 
+      type="text"
+      formControlName="title"
+    >
+
+    <div
+      *ngIf="form.get('title').touched && form.get('title').invalid" 
+      class="validation"
+    >
+      <small
+        *ngIf="form.get('title').errors.required"
+      >
+        Title is required
+      </small>
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label>Post Content:</label>
+    <quill-editor formControlName="text"></quill-editor>
+  </div>
+
+  <div
+    [ngClass]="{invalid: form.get('author').touched && form.get('author').invalid}" 
+    class="form-control"
+  >
+    <label for="author">Author:</label>
+
+    <input 
+      id="author" 
+      type="text"
+      formControlName="author"
+    >
+
+    <div
+      *ngIf="form.get('author').touched && form.get('author').invalid" 
+      class="validation"
+    >
+      <small
+        *ngIf="form.get('author').errors.required"
+      >
+        Enter the post author
+      </small>
+    </div>
+  </div>
+
+  <button 
+    type="submit"
+    class="btn btn-block btn-dark"
+    [disabled]="form.invalid"
+  >Create Post</button>
+</form>

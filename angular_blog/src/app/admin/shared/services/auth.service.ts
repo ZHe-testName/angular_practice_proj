@@ -4,7 +4,9 @@ import { catchError, Observable, Subject, tap } from "rxjs";
 import { FbAuthResponse, User } from "src/app/shared/interfaces";
 import { environment } from "src/environments/environment";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
 
   public error$: Subject<string> = new Subject<string>(); //Subject это тоже стрим толькоо в нем можно эмитить собития

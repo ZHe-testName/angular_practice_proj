@@ -10,6 +10,13 @@ import { PostPageComponent } from './post-page/post-page.component';
 import { PostComponent } from './shared/components/post/post.component';
 import { SharedModule } from './shared/shared.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import ruLocale from '@angular/common/locales/ru';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
+//для применения локализации в дате
+registerLocaleData(ruLocale, 'ru');
 
 //объект для правильного подключения интерсептооров
 const INTERCEPTOR_PROVIDE: Provider = {
@@ -29,6 +36,12 @@ const INTERCEPTOR_PROVIDE: Provider = {
     BrowserModule,
     AppRoutingModule,
     SharedModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     INTERCEPTOR_PROVIDE,

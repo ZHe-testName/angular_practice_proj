@@ -1,23 +1,30 @@
-<div class="post">
-  <div class="header">
-    <h1>Post Title</h1>
-
-    <button 
-      routerLink="/"
-      class="btn btn-link"
-    >Go Home</button>
-  </div>
-
-  <div class="info">
-    <strong>Author</strong>
-
-    <small>02.09.2022</small>
-  </div>
-
-  <div>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui recusandae rem iure velit laboriosam neque alias ab. Consectetur excepturi, assumenda quo cupiditate quasi ab cum voluptatem soluta commodi a sapiente provident ex officiis in suscipit. Incidunt nesciunt officia non a?</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui recusandae rem iure velit laboriosam neque alias ab. Consectetur excepturi, assumenda quo cupiditate quasi ab cum voluptatem soluta commodi a sapiente provident ex officiis in suscipit. Incidunt nesciunt officia non a?</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui recusandae rem iure velit laboriosam neque alias ab. Consectetur excepturi, assumenda quo cupiditate quasi ab cum voluptatem soluta commodi a sapiente provident ex officiis in suscipit. Incidunt nesciunt officia non a?</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui recusandae rem iure velit laboriosam neque alias ab. Consectetur excepturi, assumenda quo cupiditate quasi ab cum voluptatem soluta commodi a sapiente provident ex officiis in suscipit. Incidunt nesciunt officia non a?</p>
+<div *ngIf="post$ | async as post; else loading">
+  <div class="post">
+    <div class="header">
+      <h1>{{post.title}}</h1>
+  
+      <button 
+        routerLink="/"
+        class="btn btn-link"
+      >Go Home</button>
+    </div>
+  
+    <div class="info">
+      <strong>{{post.author}}</strong>
+  
+      <small>{{post.date | date:'medium':'ru'}}</small>
+    </div>
+  
+    <div>
+      <quill-view-html
+        [content]="post.text"
+      ></quill-view-html>
+    </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <p class="text-center">
+    Post is loading ...
+  </p>
+</ng-template>
